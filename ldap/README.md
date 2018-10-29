@@ -17,7 +17,7 @@ git clone https://github.com/ibm-cloud-architecture/icp-openldap
 ```
 ![clone](../images/clone.png)  
 
-Git Clone 이후에 helm package 명령을 통해 package를 만든다. (**주의**, 기본 Chart.yaml은 openldap으로 되어 있어 repository명과 동일하게 맞춰줘야 한다. icp-openldap으로 변경한다.)  
+Git Clone 이후에 helm package 명령을 통해 package를 만든다.  (**주의**, 기본 Chart.yaml은 openldap으로 되어 있어 repository명과 동일하게 맞춰줘야 한다. icp-openldap으로 변경한다.)  
 ``` bash
 helm packge icp-openldap
 ```
