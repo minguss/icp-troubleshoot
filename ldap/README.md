@@ -8,7 +8,7 @@ Docker와 Helm Charts로 확인은 했지만 Native로는 확인하지 못했지
 Docker로 설치하는 방법은 아래 URL을 참조하여 설치하면 된다.  
 [https://github.com/osixia/docker-openldap](https://github.com/osixia/docker-openldap)  
 
-Helm charts로 설치하고 설정하는편이 간단하기 때문에 우리는 아래 URL을 참고하여 생성한다.
+Helm charts로 설치하고 설정하는편이 간단하기 때문에 우리는 아래 URL을 참고하여 생성한다.  
 [https://github.com/ibm-cloud-architecture/icp-openldap](https://github.com/ibm-cloud-architecture/icp-openldap)  
 
 먼저 Git Clone을 한다.  
