@@ -29,8 +29,12 @@ kubectl edit clusterimagepolicy ibmcloud-default-cluster-image-policy
 microclimate-pileline-deployments의 serviceaccount에 pull secret patch를 한다.
 ``` bash
 kubectl describe serviceaccount default --namespace microclimate-pipeline-deployments
-kubectl patch serviceaccount default --namespace microclimate-pipeline-deployments -p '{"imagePullSecrets": [{"name": "microclimate-pipeline-secret"}]}'
 kubectl create secret docker-registry microclimate-pipeline-secret --docker-server=mycluster.icp:8500 --docker-username=admin --docker-password=admin --docker-email=null --namespace=microclimate-pipeline-deployments
+kubectl patch serviceaccount default --namespace microclimate-pipeline-deployments -p '{"imagePullSecrets": [{"name": "microclimate-pipeline-secret"}]}'
+kubectl create secret docker-registry microclimate-pipeline-secret --docker-server=mycluster.icp:8500 --docker-username=admin --docker-password=admin --docker-email=null --namespace=devops
+kubectl patch serviceaccount default --namespace devops -p '{"imagePullSecrets": [{"name": "microclimate-pipeline-secret"}]}'
+kubectl create secret docker-registry microclimate-pipeline-secret --docker-server=mycluster.icp:8500 --docker-username=admin --docker-password=admin --docker-email=null --namespace=default
+kubectl patch serviceaccount default --namespace default -p '{"imagePullSecrets": [{"name": "microclimate-pipeline-secret"}]}'
 ```
 ![image4](../images/microclimate4.png)  
 serviceaccount patch를 완료하면 helm secret도 등록해야한다. 먼저 cloudctl로 icp cluster에 로그인한다.
@@ -58,6 +62,9 @@ helm repo update
 이후에 helm cli로 microclimate을 설치한다.
 ``` bash
 helm install --name microclimate --namespace devops --set global.rbac.serviceAccountName=micro-sa,jenkins.rbac.serviceAccountName=pipeline-sa,hostName=microclimate.<proxy-ip>.nip.io,jenkins.Master.HostName=jenkins.<proxy-ip>.nip.io,persistence.useDynamicProvisioning=false,jenkins.Pipeline.Registry.Url=mycluster.icp:8500 ibm-charts/ibm-microclimate --tls
+
+###ㅅㅣㄴㄱㅠ신규
+helm install --name microclimate --namespace devops --set global.rbac.serviceAccountName=micro-sa,jenkins.rbac.serviceAccountName=pipeline-sa,global.ingressDomain=192.168.1.141.nip.io,jenkins.Pipeline.Registry.URL=mycluster.icp:8500/devops ibm-charts/ibm-microclimate --tls
 ```
 ![image8](../images/microclimate8.png)  
 
